@@ -1,5 +1,23 @@
 const File = require('../models/File');
 
+
+
+// support check function
+
+function isFileTypeSupported(fileType,supportedTypes){
+    return supportedTypes.includes(fileType);
+
+}
+
+async function uploadFileToCloudinary(file,folder,quality){
+    const options={folder};
+    console.log(file.tempFilePath);
+    if(quality){
+        options.quality=quality;
+    }
+    options.resource_type ="auto"
+    await cloudinary.uploader.upload(file.tempFilePath,options)
+}
 exports.localFileUpload = async (req, res) => {
     try {
         // Fetch file
